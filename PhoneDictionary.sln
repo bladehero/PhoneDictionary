@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneDictionary.API", "PhoneDictionary.API\PhoneDictionary.API.csproj", "{5A9CE617-609A-4683-A89E-D02B4CCE0900}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneDictionary.Data", "PhoneDictionary.Data\PhoneDictionary.Data.csproj", "{9839EE53-300F-4B25-A588-89BCDC411E64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneDictionary.Data.Infrastructure", "PhoneDictionary.Data.Infrastructure\PhoneDictionary.Data.Infrastructure.csproj", "{20E26A07-D2B0-4D97-B3A2-F308F2528BB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneDictionary.Services", "PhoneDictionary.Services\PhoneDictionary.Services.csproj", "{67FB92DD-0181-4794-B6FF-2DA5273F7589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneDictionary.Interfaces", "PhoneDictionary.Interfaces\PhoneDictionary.Interfaces.csproj", "{D6CE4936-5111-4C4D-A7F5-44DF29FD6C6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A9CE617-609A-4683-A89E-D02B4CCE0900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A9CE617-609A-4683-A89E-D02B4CCE0900}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A9CE617-609A-4683-A89E-D02B4CCE0900}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A9CE617-609A-4683-A89E-D02B4CCE0900}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9839EE53-300F-4B25-A588-89BCDC411E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9839EE53-300F-4B25-A588-89BCDC411E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9839EE53-300F-4B25-A588-89BCDC411E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9839EE53-300F-4B25-A588-89BCDC411E64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20E26A07-D2B0-4D97-B3A2-F308F2528BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20E26A07-D2B0-4D97-B3A2-F308F2528BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20E26A07-D2B0-4D97-B3A2-F308F2528BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20E26A07-D2B0-4D97-B3A2-F308F2528BB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67FB92DD-0181-4794-B6FF-2DA5273F7589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67FB92DD-0181-4794-B6FF-2DA5273F7589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67FB92DD-0181-4794-B6FF-2DA5273F7589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67FB92DD-0181-4794-B6FF-2DA5273F7589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6CE4936-5111-4C4D-A7F5-44DF29FD6C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6CE4936-5111-4C4D-A7F5-44DF29FD6C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6CE4936-5111-4C4D-A7F5-44DF29FD6C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6CE4936-5111-4C4D-A7F5-44DF29FD6C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
