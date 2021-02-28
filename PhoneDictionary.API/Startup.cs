@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using PhoneDictionary.Data.Infrastructure;
+using PhoneDictionary.Interfaces;
 
 namespace PhoneDictionary.API
 {
@@ -26,6 +22,15 @@ namespace PhoneDictionary.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<IDbContext, AppDbContext>(options =>
+            {
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddAuthentication().AddJwtBearer();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -39,16 +44,15 @@ namespace PhoneDictionary.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PhoneDictionary.API v1"));
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
