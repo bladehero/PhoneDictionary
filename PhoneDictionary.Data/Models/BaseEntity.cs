@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PhoneDictionary.Data.Models
@@ -6,5 +7,7 @@ namespace PhoneDictionary.Data.Models
     {
         [Key]
         public int Id { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
