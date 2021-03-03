@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PhoneDictionary.Extensions\PhoneDictionary.Extensions.csproj" />
       <ProjectReference Include="..\PhoneDictionary.Interfaces\PhoneDictionary.Interfaces.csproj" />
     </ItemGroup>
 

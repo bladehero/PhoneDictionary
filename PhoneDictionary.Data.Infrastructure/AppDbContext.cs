@@ -21,7 +21,6 @@ namespace PhoneDictionary.Data.Infrastructure
         public AppDbContext(DbContextOptions<AppDbContext> options, ISeedFaker seedFaker) : base(options)
         {
             _seedFaker = seedFaker;
-            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

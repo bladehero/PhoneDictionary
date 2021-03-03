@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PhoneDictionary.Data;
 using PhoneDictionary.Data.Models;
+using PhoneDictionary.Extensions;
 using PhoneDictionary.Interfaces;
 
 namespace PhoneDictionary.Services.Seed
@@ -17,7 +18,7 @@ namespace PhoneDictionary.Services.Seed
 
         public void Prepare(int userCount = 300, int tagCount = 1200, int contactCount = 1500)
         {
-            Moderators = new[] {new Moderator {Id = 1, Login = "admin", Password = "qwerty"}};
+            Moderators = new[] {new Moderator {Id = 1, Login = "admin", Password = "qwerty".ToMD5HashString()}};
 
             var userFaker = new BaseEntityFaker<User>()
                 .RuleFor(x => x.Name, x => x.Person.FullName);
