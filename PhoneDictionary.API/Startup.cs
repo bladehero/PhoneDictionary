@@ -6,7 +6,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using PhoneDictionary.Data.Infrastructure;
+using PhoneDictionary.Data.Services;
 using PhoneDictionary.Interfaces;
+using PhoneDictionary.Services;
 using PhoneDictionary.Services.Seed;
 
 namespace PhoneDictionary.API
@@ -24,6 +26,9 @@ namespace PhoneDictionary.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ISeedFaker, SeedFaker>();
+            services.Configure<AuthenticationConfig>(Configuration.GetSection(nameof(AuthenticationConfig)));
+            services.AddScoped<IAuth, JwtAuth>();
+            services.AddSingleton<IErrorMapper, ErrorMapper>();
             
             services.AddDbContext<IDbContext, AppDbContext>(options =>
             {
@@ -50,6 +55,7 @@ namespace PhoneDictionary.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PhoneDictionary.API v1"));
             }
 
+            app.UseExceptionHandler("/error");
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
