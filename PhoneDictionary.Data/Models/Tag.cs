@@ -1,6 +1,4 @@
-using PhoneDictionary.Data.Models;
-
-namespace PhoneDictionary.Data
+namespace PhoneDictionary.Data.Models
 {
     public class Tag : BaseEntity
     {

@@ -1,4 +1,4 @@
-namespace PhoneDictionary.Data
+namespace PhoneDictionary.Data.Models
 {
     public enum ContactTypes
     {
