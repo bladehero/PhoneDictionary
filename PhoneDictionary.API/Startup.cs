@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using PhoneDictionary.Data.Infrastructure;
 using PhoneDictionary.Interfaces;
+using PhoneDictionary.Services.Seed;
 
 namespace PhoneDictionary.API
 {
@@ -22,14 +23,14 @@ namespace PhoneDictionary.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ISeedFaker, SeedFaker>();
+            
             services.AddDbContext<IDbContext, AppDbContext>(options =>
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-
-            services.AddAuthentication().AddJwtBearer();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

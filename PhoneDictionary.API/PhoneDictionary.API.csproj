@@ -5,6 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MediatR" Version="9.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
@@ -17,6 +19,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PhoneDictionary.Data.Infrastructure\PhoneDictionary.Data.Infrastructure.csproj" />
+      <ProjectReference Include="..\PhoneDictionary.Services\PhoneDictionary.Services.csproj" />
     </ItemGroup>
 
 </Project>
