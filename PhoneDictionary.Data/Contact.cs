@@ -1,4 +1,6 @@
-namespace PhoneDictionary.Data.Models
+using PhoneDictionary.Data.Models;
+
+namespace PhoneDictionary.Data
 {
     public class Contact : BaseEntity
     {

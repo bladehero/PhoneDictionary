@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PhoneDictionary.Data;
 using PhoneDictionary.Data.Models;
 
 namespace PhoneDictionary.Interfaces

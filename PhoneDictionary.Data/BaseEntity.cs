@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PhoneDictionary.Data.Models
+namespace PhoneDictionary.Data
 {
     public abstract class BaseEntity
     {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PhoneDictionary.Data.Models
+namespace PhoneDictionary.Data
 {
     public class Moderator : BaseEntity
     {

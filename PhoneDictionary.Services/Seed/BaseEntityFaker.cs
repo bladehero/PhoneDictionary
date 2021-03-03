@@ -1,4 +1,5 @@
 using Bogus;
+using PhoneDictionary.Data;
 using PhoneDictionary.Data.Models;
 
 namespace PhoneDictionary.Services.Seed
