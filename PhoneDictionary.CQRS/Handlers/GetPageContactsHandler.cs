@@ -18,22 +18,21 @@ namespace PhoneDictionary.CQRS.Handlers
             _dbContext = dbContext;
         }
 
-        public Task<GetPageContactResponse> Handle(GetPageContactRequest request, CancellationToken cancellationToken)
+        public async Task<GetPageContactResponse> Handle(GetPageContactRequest request, CancellationToken cancellationToken)
         {
-            var contacts = _dbContext.Contacts
+            var contacts = await _dbContext.Contacts
                 .Include(x => x.User)
                 .OrderBy(x => x.User.Name)
                 .Skip(request.Page * request.Page)
                 .Take(request.Size)
-                .ToList();
+                .ToListAsync(cancellationToken);
 
             var response = new GetPageContactResponse
             {
                 Contacts = contacts.Select(x =>
-                    new GetPageContactResponse.PageContact(x.Value, x.ContactType.ToString(), x.User?.Name))
+                    new GetPageContactResponse.PageContact(x.Value, x.ContactType.ToString(), x.UserId, x.User?.Name))
             };
-
-            return Task.FromResult(response);
+            return response;
         }
     }
 }
