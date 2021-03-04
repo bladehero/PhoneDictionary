@@ -22,6 +22,7 @@ namespace PhoneDictionary.CQRS.Handlers
         {
             var user = await _dbContext.Users
                 .Include(x => x.Contacts)
+                .ThenInclude(x => x.ContactInfo)
                 .Include(x => x.Tags)
                 .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
             if (user is null)
@@ -33,7 +34,7 @@ namespace PhoneDictionary.CQRS.Handlers
             {
                 UserName = user.Name,
                 Contacts = user.Contacts.Select(x =>
-                    new GetUserByIdResponse.UserContact(x.Id, x.Value, x.ContactType.ToString())),
+                    new GetUserByIdResponse.UserContact(x.Id, x.Value, x.ContactType.ToString(), x.ContactInfo?.Id)),
                 Tags = user.Tags.Select(x => new GetUserByIdResponse.UserTag(x.Text, x.Color))
             };
             return response;

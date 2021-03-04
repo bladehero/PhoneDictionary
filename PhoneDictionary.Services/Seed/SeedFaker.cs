@@ -43,7 +43,7 @@ namespace PhoneDictionary.Services.Seed
                         _ => throw new ArgumentOutOfRangeException()
                     };
                 })
-                .RuleFor(x=>x.UserId, x=>x.PickRandom(Users).Id);
+                .RuleFor(x => x.UserId, x => x.PickRandom(Users).Id);
 
             Contacts = contactFaker.Generate(contactCount);
 
