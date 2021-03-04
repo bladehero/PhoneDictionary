@@ -26,7 +26,7 @@ namespace PhoneDictionary.Services.Seed
             Users = userFaker.Generate(userCount);
 
             var tagFaker = new BaseEntityFaker<Tag>()
-                .RuleFor(x => x.Text, x => x.Hacker.Phrase())
+                .RuleFor(x => x.Text, x => $"{x.Hacker.Adjective()} {x.Hacker.Noun()}")
                 .RuleFor(x => x.Color, x => x.Internet.Color())
                 .RuleFor(x => x.UserId, x => x.PickRandom(Users).Id);
 
@@ -39,7 +39,7 @@ namespace PhoneDictionary.Services.Seed
                     return contact.ContactType switch
                     {
                         ContactTypes.PhoneNumber => x.Phone.PhoneNumber(),
-                        ContactTypes.Email => x.Internet.Email(),
+                        ContactTypes.Email => x.Internet.ExampleEmail(),
                         _ => throw new ArgumentOutOfRangeException()
                     };
                 })
