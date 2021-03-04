@@ -18,13 +18,29 @@ namespace PhoneDictionary.CQRS.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<GetPageContactResponse> Handle(GetPageContactRequest request, CancellationToken cancellationToken)
+        public async Task<GetPageContactResponse> Handle(GetPageContactRequest request,
+            CancellationToken cancellationToken)
         {
-            var contacts = await _dbContext.Contacts
-                .Include(x => x.User)
-                .OrderBy(x => x.User.Name)
-                .Skip(request.Page * request.Page)
+            var includableQueryable = _dbContext.Contacts
+                .Include(x => x.User);
+            var query = includableQueryable.AsQueryable();
+            
+            var search = request.Search;
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = includableQueryable.ThenInclude(x => x.Tags)
+                    .Include(x => x.ContactInfo)
+                    .Where(x => x.Value.Contains(search))
+                    .Where(x => x.User.Name.Contains(search))
+                    .Where(x => x.ContactInfo.City.Contains(search))
+                    .Where(x => x.ContactInfo.Country.Contains(search))
+                    .Where(x => x.ContactInfo.Provider.Contains(search))
+                    .Where(x => x.User.Tags.Any(x => x.Text.Contains(search)));
+            }
+
+            var contacts = await query.Skip(request.Page * request.Page)
                 .Take(request.Size)
+                .OrderBy(x => x.User.Name)
                 .ToListAsync(cancellationToken);
 
             var response = new GetPageContactResponse

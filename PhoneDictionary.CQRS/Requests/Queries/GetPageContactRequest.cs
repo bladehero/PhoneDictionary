@@ -10,5 +10,8 @@ namespace PhoneDictionary.CQRS.Requests.Queries
         public int Page { get; set; } = 0;
         [Range(1,50)]
         public int Size { get; set; } = 10;
+
+        [MaxLength(100)]
+        public string Search { get; set; }
     }
 }
