@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PhoneDictionary.CQRS\PhoneDictionary.CQRS.csproj" />
       <ProjectReference Include="..\PhoneDictionary.Data.Infrastructure\PhoneDictionary.Data.Infrastructure.csproj" />
       <ProjectReference Include="..\PhoneDictionary.Services\PhoneDictionary.Services.csproj" />
     </ItemGroup>

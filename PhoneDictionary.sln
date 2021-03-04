@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneDictionary.Interfaces"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneDictionary.Extensions", "PhoneDictionary.Extensions\PhoneDictionary.Extensions.csproj", "{E3D27282-DF86-4592-B434-076DD974E191}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneDictionary.CQRS", "PhoneDictionary.CQRS\PhoneDictionary.CQRS.csproj", "{3EA200E2-A437-4299-ABC6-6663A0F29C1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{E3D27282-DF86-4592-B434-076DD974E191}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3D27282-DF86-4592-B434-076DD974E191}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3D27282-DF86-4592-B434-076DD974E191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA200E2-A437-4299-ABC6-6663A0F29C1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA200E2-A437-4299-ABC6-6663A0F29C1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA200E2-A437-4299-ABC6-6663A0F29C1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA200E2-A437-4299-ABC6-6663A0F29C1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

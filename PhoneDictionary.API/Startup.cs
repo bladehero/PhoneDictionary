@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,6 +35,8 @@ namespace PhoneDictionary.API
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+            
+            services.AddMediatR(CQRS.AssemblyInfo.GetAssembly());
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
