@@ -2,8 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PhoneDictionary.Data.Infrastructure;
 
 namespace PhoneDictionary.Data.Infrastructure.Migrations
 {
