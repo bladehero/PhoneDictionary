@@ -22,6 +22,7 @@ namespace PhoneDictionary.CQRS.Handlers
             CancellationToken cancellationToken)
         {
             var includableQueryable = _dbContext.Contacts
+                .OrderBy(x => x.User.Name)
                 .Include(x => x.User);
             var query = includableQueryable.AsQueryable();
             
@@ -40,7 +41,6 @@ namespace PhoneDictionary.CQRS.Handlers
 
             var contacts = await query.Skip(request.Page * request.Page)
                 .Take(request.Size)
-                .OrderBy(x => x.User.Name)
                 .ToListAsync(cancellationToken);
 
             var response = new GetPageContactResponse

@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,7 +34,9 @@ namespace PhoneDictionary.API
             
             services.AddDbContext<IDbContext, AppDbContext>(options =>
             {
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                var connection = new SqliteConnection(Configuration.GetConnectionString("DefaultConnection"));
+                connection.CreateCollation("default", string.Compare);
+                options.UseSqlite(connection);
             });
             
             services.AddMediatR(CQRS.AssemblyInfo.GetAssembly());
