@@ -29,11 +29,11 @@ namespace PhoneDictionary.CQRS.Handlers
                 query = query.Where(x => x.Contains(city));
             }
 
-            var cities = await query.Distinct().OrderBy(x => x).ToListAsync(cancellationToken);
+            var cities = await query.Distinct().ToListAsync(cancellationToken);
 
             var response = new GetCitiesResponse
             {
-                Cities = cities
+                Cities = cities.OrderBy(x => x)
             };
             return response;
         }

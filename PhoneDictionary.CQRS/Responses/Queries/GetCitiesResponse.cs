@@ -4,6 +4,6 @@ namespace PhoneDictionary.CQRS.Responses.Queries
 {
     public class GetCitiesResponse
     {
-        public List<string> Cities { get; set; }
+        public IEnumerable<string> Cities { get; set; }
     }
 }

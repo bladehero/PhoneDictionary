@@ -22,7 +22,6 @@ namespace PhoneDictionary.CQRS.Handlers
             CancellationToken cancellationToken)
         {
             var includableQueryable = _dbContext.Contacts
-                .OrderBy(x => x.User.Name)
                 .Include(x => x.User);
             var query = includableQueryable.AsQueryable();
 
@@ -49,14 +48,18 @@ namespace PhoneDictionary.CQRS.Handlers
                 query = query.Where(x => x.ContactType == contactType);
             }
 
-            var contacts = await query.Skip(request.Page * request.Page)
+            var contacts = await query.OrderBy(x => x.Id)
+                .Skip(request.Page * request.Page)
                 .Take(request.Size)
                 .ToListAsync(cancellationToken);
 
             var response = new GetPageContactResponse
             {
-                Contacts = contacts.Select(x =>
-                    new GetPageContactResponse.PageContact(x.Value, x.ContactType.ToString(), x.UserId, x.User?.Name))
+                Contacts = contacts
+                    .Select(x =>
+                        new GetPageContactResponse.PageContact(x.Value, x.ContactType.ToString(), x.UserId,
+                            x.User?.Name))
+                    .OrderBy(x => x.UserName)
             };
             return response;
         }
