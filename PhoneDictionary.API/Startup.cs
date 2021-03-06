@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,7 +44,10 @@ namespace PhoneDictionary.API
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opts =>
+            {
+                opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "PhoneDictionary.API", Version = "v1"});
