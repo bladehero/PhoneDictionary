@@ -22,7 +22,7 @@ namespace PhoneDictionary.API
         {
             Configuration = configuration;
         }
-
+        readonly string FullAccessOrigins = "FullAccessOrigins";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -38,6 +38,15 @@ namespace PhoneDictionary.API
                 var connection = new SqliteConnection(Configuration.GetConnectionString("DefaultConnection"));
                 connection.CreateCollation("default", string.Compare);
                 options.UseSqlite(connection);
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: FullAccessOrigins,
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod();
+                    });
             });
             
             services.AddMediatR(CQRS.AssemblyInfo.GetAssembly());
@@ -64,6 +73,8 @@ namespace PhoneDictionary.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PhoneDictionary.API v1"));
             }
+            
+            app.UseCors(FullAccessOrigins);
 
             app.UseExceptionHandler("/error");
             app.UseHttpsRedirection();
