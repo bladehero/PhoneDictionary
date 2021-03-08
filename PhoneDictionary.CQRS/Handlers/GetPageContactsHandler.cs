@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace PhoneDictionary.CQRS.Handlers
                     .Where(x => x.User.Name.Contains(search))
                     .Where(x => x.ContactInfo.Country.Contains(search))
                     .Where(x => x.ContactInfo.Provider.Contains(search))
-                    .Where(x => x.User.Tags.Any(x => x.Text.Contains(search)));
+                    .Where(x => x.User.Tags.Any(tag => tag.Text.Contains(search)));
             }
 
             if (request.ContactType is { } contactType)
@@ -49,9 +50,12 @@ namespace PhoneDictionary.CQRS.Handlers
             }
 
             var contacts = await query.OrderBy(x => x.Id)
-                .Skip(request.Page * request.Page)
+                .Skip(request.Page * request.Size)
                 .Take(request.Size)
                 .ToListAsync(cancellationToken);
+
+            var records = await query.CountAsync(cancellationToken);
+            var pages = (int)Math.Ceiling(records / (double) request.Size);
 
             var response = new GetPageContactResponse
             {
@@ -59,7 +63,9 @@ namespace PhoneDictionary.CQRS.Handlers
                     .Select(x =>
                         new GetPageContactResponse.PageContact(x.Value, x.ContactType.ToString(), x.UserId,
                             x.User?.Name))
-                    .OrderBy(x => x.UserName)
+                    .OrderBy(x => x.UserName),
+                Pages = pages,
+                Records = records
             };
             return response;
         }
