@@ -30,9 +30,9 @@ const actions = {
       state.params.cities,
       state.params.search
     )
-    commit('setContacts', response.data.contacts)
     commit('setPages', response.data.pages)
     commit('setRecords', response.data.records)
+    commit('setContacts', response.data.contacts)
   }
 }
 
@@ -41,7 +41,7 @@ const mutations = {
     state.contacts = contacts
   },
   setPages (state, pages) {
-    state.records = pages
+    state.pages = pages
   },
   setRecords (state, records) {
     state.records = records
