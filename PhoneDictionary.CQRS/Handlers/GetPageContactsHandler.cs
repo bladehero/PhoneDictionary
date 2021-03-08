@@ -45,7 +45,7 @@ namespace PhoneDictionary.CQRS.Handlers
             }
 
             var contactTypes = request.ContactTypes?.ToList();
-            if (contactTypes.Any())
+            if (contactTypes?.Any() == true)
             {
                 query = query.Where(x => contactTypes.Contains(x.ContactType));
             }
