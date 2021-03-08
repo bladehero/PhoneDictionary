@@ -15,9 +15,14 @@
 import { mapActions, mapMutations } from 'vuex'
 
 export default {
-  data () {
-    return {
-      search: ''
+  computed: {
+    search: {
+      get () {
+        return this.$store.state.contacts.params.search
+      },
+      set (value) {
+        this.$store.commit('contacts/setSearchParams', { search: value })
+      }
     }
   },
   methods: {
