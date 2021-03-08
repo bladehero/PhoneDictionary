@@ -31,29 +31,40 @@
       <v-pagination
         color="yellow darken-1"
         v-model="page"
-        :length="15"
-        :total-visible="7"
+        :length="pages"
+        :total-visible="10"
       ></v-pagination>
     </div>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
-  data () {
-    return {
-      page: 1
-    }
-  },
   computed: {
-    ...mapGetters('contacts', ['contacts'])
+    page: {
+      get () {
+        return this.$store.state.contacts.page
+      },
+      set (value) {
+        this.$store.commit('contacts/setPage', value)
+      }
+    },
+    ...mapGetters('contacts', ['contacts', 'pages'])
+  },
+  methods: {
+    ...mapActions('contacts', ['getContacts'])
+  },
+  watch: {
+    async page () {
+      await this.getContacts()
+    }
   }
 }
 </script>
 
 <style scoped>
-.v-card__title{
+.v-card__title {
   color: white;
   background: linear-gradient(45deg, #b02799, #00ffbf);
 }
