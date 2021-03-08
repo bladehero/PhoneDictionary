@@ -17,7 +17,9 @@ const actions = {
 
 const mutations = {
   setContactTypes (state, contactTypes) {
-    state.contactTypes = contactTypes
+    state.contactTypes = contactTypes.map(x => {
+      return { text: x.text, value: x.value }
+    })
   }
 }
 

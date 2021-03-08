@@ -1,0 +1,74 @@
+import api from '../../api/contacts'
+
+const state = () => ({
+  contacts: [],
+  pages: 0,
+  records: 0,
+  page: 1,
+  size: 5,
+  params: {
+    search: null,
+    contactTypes: [],
+    cities: []
+  }
+})
+
+const getters = {
+  contacts: state => state.contacts,
+  pages: state => state.pages,
+  records: state => state.records,
+  page: state => state.page,
+  size: state => state.size
+}
+
+const actions = {
+  getContacts: async ({ commit, getters, state }) => {
+    var response = await api.getContacts(
+      getters.page - 1,
+      getters.size,
+      state.params.contactTypes,
+      state.params.cities,
+      state.params.search
+    )
+    commit('setContacts', response.data.contacts)
+    commit('setPages', response.data.pages)
+    commit('setRecords', response.data.records)
+  }
+}
+
+const mutations = {
+  setContacts (state, contacts) {
+    state.contacts = contacts
+  },
+  setPages (state, pages) {
+    state.records = pages
+  },
+  setRecords (state, records) {
+    state.records = records
+  },
+  setPage (state, page) {
+    state.page = page
+  },
+  setSearchParams (state, { search, contactTypes, cities }) {
+    if (search !== undefined) {
+      state.params.search = search
+    }
+    state.params.contactTypes = contactTypes || state.params.contactTypes
+    state.params.cities = cities || state.params.cities
+  },
+  clearSearchParams () {
+    state.params = {
+      search: null,
+      contactTypes: [],
+      cities: []
+    }
+  }
+}
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
+}

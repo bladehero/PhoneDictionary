@@ -7,17 +7,21 @@
           <thead>
             <tr>
               <th class="text-left">
-                Name
+                Ім'я
               </th>
               <th class="text-left">
-                Calories
+                Тип
+              </th>
+              <th class="text-left">
+                Контакт
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in desserts" :key="item.name">
-              <td>{{ item.name }}</td>
-              <td>{{ item.calories }}</td>
+            <tr v-for="contact in contacts" :key="contact.userId">
+              <td>{{ contact.userName }}</td>
+              <td>{{ contact.contactType }}</td>
+              <td>{{ contact.contact }}</td>
             </tr>
           </tbody>
         </template>
@@ -35,21 +39,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      page: 1,
-      desserts: [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237
-        }
-      ]
+      page: 1
     }
+  },
+  computed: {
+    ...mapGetters('contacts', ['contacts'])
   }
 }
 </script>

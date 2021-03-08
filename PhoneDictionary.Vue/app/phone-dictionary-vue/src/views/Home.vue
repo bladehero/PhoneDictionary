@@ -17,13 +17,35 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="10">
-        <div style="position: relative;">
-          <v-btn id="search-button" elevation="5" fab dark color="yellow">
-            <v-icon>
-              mdi-magnify
-            </v-icon>
-          </v-btn>
+      <v-col cols="12">
+        <div class="tool-wrapper">
+          <div class="tool-layer">
+            <v-btn
+              class="mr-2"
+              id="search-button"
+              elevation="5"
+              fab
+              dark
+              color="yellow"
+              @click="search"
+            >
+              <v-icon>
+                mdi-magnify
+              </v-icon>
+            </v-btn>
+            <v-btn
+              id="clear-button"
+              elevation="5"
+              fab
+              dark
+              color="red darken-1"
+              @click="clear"
+            >
+              <v-icon>
+                mdi-cancel
+              </v-icon>
+            </v-btn>
+          </div>
         </div>
         <ContactsList />
       </v-col>
@@ -36,6 +58,7 @@ import CityHeader from '../components/CityHeader'
 import ContactTypesHeader from '../components/ContactTypesHeader'
 import SearchHeader from '../components/SearchHeader'
 import ContactsList from '../components/ContactsList'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -44,15 +67,31 @@ export default {
     SearchHeader,
     ContactsList
   },
-  name: 'Home'
+  name: 'Home',
+  methods: {
+    ...mapActions('contacts', ['getContacts']),
+    ...mapMutations('contacts', ['clearSearchParams']),
+    async search () {
+      await this.getContacts()
+    },
+    clear () {
+      this.clearSearchParams()
+    }
+  },
+  async created () {
+    await this.search()
+  }
 }
 </script>
 
 <style scoped>
-#search-button {
+.tool-wrapper {
+  position: relative;
+}
+.tool-layer {
   position: absolute;
   top: -30px;
   right: 30px;
-  z-index: 9;
+  z-index: 1;
 }
 </style>

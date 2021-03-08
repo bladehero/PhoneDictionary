@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PhoneDictionary.CQRS.Requests.Queries;
 using PhoneDictionary.CQRS.Responses.Queries;
+using PhoneDictionary.Extensions;
 using PhoneDictionary.Interfaces;
 
 namespace PhoneDictionary.CQRS.Handlers
@@ -37,11 +38,16 @@ namespace PhoneDictionary.CQRS.Handlers
             {
                 query = includableQueryable.ThenInclude(x => x.Tags)
                     .Include(x => x.ContactInfo)
-                    .Where(x => x.Value.Contains(search))
-                    .Where(x => x.User.Name.Contains(search))
-                    .Where(x => x.ContactInfo.Country.Contains(search))
-                    .Where(x => x.ContactInfo.Provider.Contains(search))
-                    .Where(x => x.User.Tags.Any(tag => tag.Text.Contains(search)));
+                    .Where(x => x.Value.Contains(search)
+                                || x.Value.Replace("(", string.Empty)
+                                    .Replace(")", string.Empty)
+                                    .Replace(" ", string.Empty)
+                                    .Replace("-", string.Empty)
+                                    .Contains(search)
+                                || x.User.Name.Contains(search)
+                                || x.ContactInfo.Country.Contains(search)
+                                || x.ContactInfo.Provider.Contains(search)
+                                || x.User.Tags.Any(tag => tag.Text.Contains(search)));
             }
 
             var contactTypes = request.ContactTypes?.ToList();
@@ -62,7 +68,7 @@ namespace PhoneDictionary.CQRS.Handlers
             {
                 Contacts = contacts
                     .Select(x =>
-                        new GetPageContactResponse.PageContact(x.Value, x.ContactType.ToString(), x.UserId,
+                        new GetPageContactResponse.PageContact(x.Value, x.ContactType.GetDescription(), x.UserId,
                             x.User?.Name))
                     .OrderBy(x => x.UserName),
                 Pages = pages,

@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PhoneDictionary.Data.Models;
@@ -12,9 +12,13 @@ namespace PhoneDictionary.API.Controllers
     public class ContactTypesController : Controller
     {
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable Get()
         {
-            return Enum.GetValues<ContactTypes>().Select(x => x.GetDescription());
+            return Enum.GetValues<ContactTypes>().Select(x => new
+            {
+                Text = x.GetDescription(), 
+                Value = x
+            });
         }
     }
 }
