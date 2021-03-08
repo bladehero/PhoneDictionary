@@ -1,8 +1,10 @@
+using System.ComponentModel;
+
 namespace PhoneDictionary.Data.Models
 {
     public enum ContactTypes
     {
-        PhoneNumber,
-        Email
+        [Description("Телефоний номер")] PhoneNumber,
+        [Description("Email")] Email
     }
 }
