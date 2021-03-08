@@ -33,6 +33,9 @@ const actions = {
     commit('setPages', response.data.pages)
     commit('setRecords', response.data.records)
     commit('setContacts', response.data.contacts)
+  },
+  resetPage: ({ commit }) => {
+    commit('setPage', 1)
   }
 }
 

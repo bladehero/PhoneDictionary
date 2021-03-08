@@ -25,7 +25,7 @@ export default {
         return this.$store.state.contacts.params.cities
       },
       set (value) {
-        const cities = value.map(x => typeof x === 'string' ? x : x.value)
+        const cities = value.map(x => (typeof x === 'string' ? x : x.value))
         this.$store.commit('contacts/setSearchParams', { cities })
       }
     },

@@ -8,6 +8,6 @@ namespace PhoneDictionary.CQRS.Responses.Queries
         public int Pages { get; set; }
         public int Records { get; set; }
 
-        public record PageContact(string Contact, string ContactType, int UserId, string UserName);
+        public record PageContact(int ContactId, string Contact, string ContactType, int UserId, string UserName);
     }
 }

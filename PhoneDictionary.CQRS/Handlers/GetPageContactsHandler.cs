@@ -68,7 +68,7 @@ namespace PhoneDictionary.CQRS.Handlers
             {
                 Contacts = contacts
                     .Select(x =>
-                        new GetPageContactResponse.PageContact(x.Value, x.ContactType.GetDescription(), x.UserId,
+                        new GetPageContactResponse.PageContact(x.Id, x.Value, x.ContactType.GetDescription(), x.UserId,
                             x.User?.Name))
                     .OrderBy(x => x.UserName),
                 Pages = pages,

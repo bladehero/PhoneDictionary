@@ -2,7 +2,7 @@
   <v-card class="pb-2" elevation="2">
     <v-card-title class="headline">Контакти</v-card-title>
     <v-card-text>
-      <v-simple-table>
+      <v-simple-table v-if="hasContact">
         <template v-slot:default>
           <thead>
             <tr>
@@ -18,7 +18,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="contact in contacts" :key="contact.userId">
+            <tr v-for="contact in contacts" :key="contact.contactId">
               <td>{{ contact.userName }}</td>
               <td>{{ contact.contactType }}</td>
               <td>{{ contact.contact }}</td>
@@ -26,8 +26,9 @@
           </tbody>
         </template>
       </v-simple-table>
+      <p class="text-center mt-7" v-else>Немає даних згідно із запитом...</p>
     </v-card-text>
-    <div class="text-center">
+    <div class="text-center" v-if="hasContact">
       <v-pagination
         color="yellow darken-1"
         v-model="page"
@@ -49,6 +50,10 @@ export default {
       set (value) {
         this.$store.commit('contacts/setPage', value)
       }
+    },
+    hasContact () {
+      const contacts = this.contacts
+      return contacts && contacts.length
     },
     ...mapGetters('contacts', ['contacts', 'pages'])
   },

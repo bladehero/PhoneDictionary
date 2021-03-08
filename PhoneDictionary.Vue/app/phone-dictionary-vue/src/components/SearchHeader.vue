@@ -26,11 +26,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions('contacts', ['getContacts']),
+    ...mapActions('contacts', ['getContacts', 'resetPage']),
     ...mapMutations('contacts', ['setSearchParams'])
   },
   watch: {
     async search (newValue) {
+      this.resetPage()
       this.setSearchParams({ search: newValue })
       await this.getContacts()
     }
