@@ -17,7 +17,9 @@ const actions = {
 
 const mutations = {
   setCities (state, cities) {
-    state.cities = cities
+    state.cities = cities.map(x => {
+      return { text: x, value: x }
+    })
   }
 }
 

@@ -1,17 +1,16 @@
 <template>
   <v-combobox
-    id="city-list"
+    id="contact-type-list"
     class="text-white"
     color="white"
-    :items="cities"
-    label="Всі міста"
-    multiple
+    :items="contactTypes"
+    label="Всі типи"
     outlined
+    multiple
     dark
-    auto-select-first
     dense
     hide-details
-  />
+  ></v-combobox>
 </template>
 
 <script>
@@ -19,14 +18,14 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('cities', ['cities'])
+    ...mapGetters('contactTypes', ['contactTypes'])
   },
   methods: {
-    ...mapActions('cities', ['getAllCities'])
+    ...mapActions('contactTypes', ['getAllContactTypes'])
   },
 
   created: function () {
-    this.getAllCities()
+    this.getAllContactTypes()
   }
 }
 </script>
