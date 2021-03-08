@@ -11,29 +11,27 @@
     dark
     dense
     hide-details
-    @change="contactTypesChanged"
   ></v-combobox>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  data () {
-    return {
-      selected: []
-    }
-  },
   computed: {
+    selected: {
+      get () {
+        return this.$store.state.contacts.params.contactTypes
+      },
+      set (value) {
+        const contactTypes = value.map(x => typeof x === 'string' ? x : x.value)
+        this.$store.commit('contacts/setSearchParams', { contactTypes })
+      }
+    },
     ...mapGetters('contactTypes', ['contactTypes'])
   },
   methods: {
-    ...mapActions('contactTypes', ['getAllContactTypes']),
-    ...mapMutations('contacts', ['setSearchParams']),
-    contactTypesChanged () {
-      const contactTypes = this.selected.map(x => x.value)
-      this.setSearchParams({ contactTypes })
-    }
+    ...mapActions('contactTypes', ['getAllContactTypes'])
   },
 
   created: function () {
