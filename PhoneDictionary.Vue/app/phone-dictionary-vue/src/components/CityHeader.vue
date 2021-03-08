@@ -12,29 +12,27 @@
     auto-select-first
     dense
     hide-details
-    @change="citiesChanged"
   />
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  data () {
-    return {
-      selected: []
-    }
-  },
   computed: {
+    selected: {
+      get () {
+        return this.$store.state.contacts.params.cities
+      },
+      set (value) {
+        const cities = value.map(x => typeof x === 'string' ? x : x.text)
+        this.$store.commit('contacts/setSearchParams', { cities })
+      }
+    },
     ...mapGetters('cities', ['cities'])
   },
   methods: {
-    ...mapActions('cities', ['getAllCities']),
-    ...mapMutations('contacts', ['setSearchParams']),
-    citiesChanged () {
-      const cities = this.selected.map(x => x.text)
-      this.setSearchParams({ cities })
-    }
+    ...mapActions('cities', ['getAllCities'])
   },
 
   created: function () {

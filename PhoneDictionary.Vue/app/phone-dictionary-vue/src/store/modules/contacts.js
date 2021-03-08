@@ -56,7 +56,7 @@ const mutations = {
     state.params.contactTypes = contactTypes || state.params.contactTypes
     state.params.cities = cities || state.params.cities
   },
-  clearSearchParams () {
+  clearSearchParams (state) {
     state.params = {
       search: null,
       contactTypes: [],
