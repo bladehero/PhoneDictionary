@@ -26,10 +26,10 @@ namespace PhoneDictionary.CQRS.Handlers
                 .Include(x => x.User);
             var query = includableQueryable.AsQueryable();
 
-            var city = request.City?.Trim();
-            if (!string.IsNullOrWhiteSpace(city))
+            var cities = request.Cities?.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (cities?.Any() == true)
             {
-                query = query.Where(x => x.ContactInfo.City == city);
+                query = query.Where(x => cities.Contains(x.ContactInfo.City));
             }
 
             var search = request.Search;
@@ -44,9 +44,10 @@ namespace PhoneDictionary.CQRS.Handlers
                     .Where(x => x.User.Tags.Any(tag => tag.Text.Contains(search)));
             }
 
-            if (request.ContactType is { } contactType)
+            var contactTypes = request.ContactTypes.ToList();
+            if (contactTypes.Any())
             {
-                query = query.Where(x => x.ContactType == contactType);
+                query = query.Where(x => contactTypes.Contains(x.ContactType));
             }
 
             var contacts = await query.OrderBy(x => x.Id)
@@ -55,7 +56,7 @@ namespace PhoneDictionary.CQRS.Handlers
                 .ToListAsync(cancellationToken);
 
             var records = await query.CountAsync(cancellationToken);
-            var pages = (int)Math.Ceiling(records / (double) request.Size);
+            var pages = (int) Math.Ceiling(records / (double) request.Size);
 
             var response = new GetPageContactResponse
             {
