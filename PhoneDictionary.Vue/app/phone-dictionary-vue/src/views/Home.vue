@@ -6,13 +6,13 @@
       </v-col>
       <v-col cols="12">
         <v-row justify="center">
-          <v-col cols="8" sm="6" md="4" lg="3">
+          <v-col cols="6" md="4" lg="3">
             <ContactTypesHeader />
           </v-col>
-          <v-col cols="8" sm="6" md="4" lg="3">
+          <v-col cols="6" md="4" lg="3">
             <CityHeader />
           </v-col>
-          <v-col cols="8" sm="12" md="4" lg="3">
+          <v-col cols="12" md="4" lg="3">
             <SearchHeader />
           </v-col>
         </v-row>

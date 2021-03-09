@@ -33,7 +33,7 @@
         color="yellow darken-1"
         v-model="page"
         :length="pages"
-        :total-visible="10"
+        :total-visible="7"
       ></v-pagination>
     </div>
   </v-card>
