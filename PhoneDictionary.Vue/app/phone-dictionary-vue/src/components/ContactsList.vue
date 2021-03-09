@@ -32,7 +32,10 @@
                   >
                     mdi-account
                   </v-icon>
-                  <v-icon color="teal" @click="openContactInfo">
+                  <v-icon
+                    color="teal"
+                    @click="openContactInfo(contact.contactId)"
+                  >
                     mdi-alpha-i-circle
                   </v-icon>
                 </div>
@@ -48,7 +51,10 @@
                       <v-list-item link @click="openUserInfo">
                         <v-list-item-title>О користувачі</v-list-item-title>
                       </v-list-item>
-                      <v-list-item link @click="openContactInfo">
+                      <v-list-item
+                        link
+                        @click="openContactInfo(contact.contactId)"
+                      >
                         <v-list-item-title>Інформація</v-list-item-title>
                       </v-list-item>
                     </v-list>
@@ -60,6 +66,51 @@
         </template>
       </v-simple-table>
       <p class="text-center mt-7" v-else>Немає даних згідно із запитом...</p>
+
+      <v-overlay :value="isContactInfoShown" opacity="1" color="white">
+        <v-container class="contact-info-grid">
+          <v-row>
+            <div class="d-inline-flex">
+              <v-icon left>mdi-account</v-icon>
+              <span class="header">Ім'я</span>
+            </div>
+            <span class="value">{{ infoUserName }}</span>
+          </v-row>
+          <v-row>
+            <div class="d-inline-flex">
+              <v-icon left>mdi-earth</v-icon>
+              <span class="header">Країна</span>
+            </div>
+            <span class="value">{{ infoCountry }}</span>
+          </v-row>
+          <v-row>
+            <div class="d-inline-flex">
+              <v-icon left>mdi-map-marker-radius</v-icon>
+              <span class="header">Місто</span>
+            </div>
+            <span class="value">{{ infoCity }}</span>
+          </v-row>
+          <v-row>
+            <div class="d-inline-flex">
+              <v-icon left>mdi-face-agent</v-icon>
+              <span class="header">Провайдер</span>
+            </div>
+            <span class="value">{{ infoProvider }}</span>
+          </v-row>
+          <v-row class="mb-2">
+            <div class="d-inline-flex">
+              <v-icon left>mdi-account-box-outline</v-icon>
+              <span class="header">Контакт</span>
+            </div>
+            <span class="value">{{ infoContact }}</span>
+          </v-row>
+          <v-row class="float-right">
+            <v-btn small color="success" @click="closeContactInfo">
+              Закрити
+            </v-btn>
+          </v-row>
+        </v-container>
+      </v-overlay>
     </v-card-text>
     <div class="text-center" v-if="hasContact">
       <v-pagination
@@ -73,8 +124,13 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
+  data () {
+    return {
+      isContactInfoShown: false
+    }
+  },
   computed: {
     page: {
       get () {
@@ -88,12 +144,28 @@ export default {
       const contacts = this.contacts
       return contacts && contacts.length
     },
-    ...mapGetters('contacts', ['contacts', 'pages'])
+    ...mapGetters('contacts', ['contacts', 'pages']),
+    ...mapGetters('contactInfos', [
+      'infoUserName',
+      'infoCountry',
+      'infoCity',
+      'infoProvider',
+      'infoContact'
+    ])
   },
   methods: {
     ...mapActions('contacts', ['getContacts']),
+    ...mapActions('contactInfos', ['getContactInfo']),
+    ...mapMutations('contactInfos', ['clearContactInfo']),
     openUserInfo () {},
-    openContactInfo () {}
+    async openContactInfo (id) {
+      await this.getContactInfo(id)
+      this.isContactInfoShown = true
+    },
+    closeContactInfo () {
+      this.clearContactInfo()
+      this.isContactInfoShown = false
+    }
   },
   watch: {
     async page () {
@@ -107,5 +179,20 @@ export default {
 .v-card__title {
   color: white;
   background: linear-gradient(45deg, #b02799, #00ffbf);
+}
+
+.contact-info-grid i {
+  color: black;
+}
+.contact-info-grid span {
+  color: black;
+  font-size: 1.2rem;
+}
+.contact-info-grid span.header::after {
+  content: ':';
+  margin-right: 10px;
+}
+.contact-info-grid span.value {
+  font-weight: bold;
 }
 </style>
