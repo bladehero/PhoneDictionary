@@ -1,7 +1,14 @@
 <template>
   <v-app>
     <v-main>
-      <router-view/>
+      <v-container>
+        <v-row justify="center">
+            <v-col class="mt-5 mb-3" cols="3">
+              <v-img src="@/assets/logo-header.png" alt="logo" />
+            </v-col>
+            <router-view />
+        </v-row>
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -17,12 +24,12 @@ export default {
 </script>
 
 <style>
-html{
+html {
   overflow-x: hidden !important;
   overflow-y: hidden !important;
 }
-#app{
-  content: "";
+#app {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

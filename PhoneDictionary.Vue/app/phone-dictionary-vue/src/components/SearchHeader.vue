@@ -7,7 +7,7 @@
     dense
     dark
     hide-details
-    class="mb-3"
+    class="mb-2 mb-md-3"
   ></v-text-field>
 </template>
 

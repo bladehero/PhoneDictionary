@@ -14,7 +14,7 @@ const state = () => ({
 })
 
 const getters = {
-  contacts: state => state.contacts,
+  contacts: state => state.contacts.slice(0, state.size),
   pages: state => state.pages,
   records: state => state.records,
   page: state => state.page,
@@ -51,6 +51,9 @@ const mutations = {
   },
   setPage (state, page) {
     state.page = page
+  },
+  setSize (state, size) {
+    state.size = size
   },
   setSearchParams (state, { search, contactTypes, cities }) {
     if (search !== undefined) {

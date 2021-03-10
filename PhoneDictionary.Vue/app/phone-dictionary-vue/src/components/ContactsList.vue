@@ -2,7 +2,7 @@
   <v-card class="pb-2" elevation="2">
     <v-card-title class="headline">Контакти</v-card-title>
     <v-card-text>
-      <v-simple-table v-if="hasContact">
+      <v-simple-table v-if="hasContact" dense>
         <template v-slot:default>
           <thead>
             <tr>
@@ -128,6 +128,8 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
+      windowHeight: window.innerHeight,
+      smallHeight: false,
       isContactInfoShown: false
     }
   },
@@ -153,10 +155,17 @@ export default {
       'infoContact'
     ])
   },
+  mounted () {
+    this.onResize()
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize)
+    })
+  },
   methods: {
     ...mapActions('contacts', ['getContacts']),
     ...mapActions('contactInfos', ['getContactInfo']),
     ...mapMutations('contactInfos', ['clearContactInfo']),
+    ...mapMutations('contacts', ['setSize']),
     openUserInfo () {},
     async openContactInfo (id) {
       await this.getContactInfo(id)
@@ -165,11 +174,21 @@ export default {
     closeContactInfo () {
       this.clearContactInfo()
       this.isContactInfoShown = false
+    },
+    onResize () {
+      this.smallHeight = window.innerHeight < 610
     }
   },
   watch: {
     async page () {
       await this.getContacts()
+    },
+    async smallHeight (newValue) {
+      if (newValue) {
+        await this.setSize(3)
+      } else {
+        await this.setSize(5)
+      }
     }
   }
 }
