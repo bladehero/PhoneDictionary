@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Bogus;
 using MediatR;
 using PhoneDictionary.CQRS.Requests.Commands;
 using PhoneDictionary.CQRS.Responses.Commands;
@@ -23,7 +24,7 @@ namespace PhoneDictionary.CQRS.Handlers
             var tag = new Tag
             {
                 Text = request.Tag,
-                Color = request.Color,
+                Color = request.Color ?? new Faker().Internet.Color(),
                 UserId = request.UserId
             };
             await _dbContext.Tags.AddAsync(tag, cancellationToken);

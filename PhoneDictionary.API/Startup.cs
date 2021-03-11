@@ -45,7 +45,7 @@ namespace PhoneDictionary.API
                 options.AddPolicy(name: FullAccessOrigins,
                     builder =>
                     {
-                        builder.AllowAnyOrigin().AllowAnyMethod();
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                     });
             });
             
