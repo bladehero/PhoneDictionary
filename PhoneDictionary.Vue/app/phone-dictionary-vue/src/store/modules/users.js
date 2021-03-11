@@ -1,4 +1,5 @@
 import api from '../../api/users'
+import tagsApi from '../../api/tags'
 
 const state = () => ({
   userName: null,
@@ -19,6 +20,12 @@ const actions = {
   },
   resetPage: ({ commit }) => {
     commit('setUser')
+  },
+  createTag: async ({ commit }, { userId, tag, color }) => {
+    var response = await tagsApi.createTag(userId, tag, color)
+    if (response && response.tagId) {
+      commit('addTag', { tagId: response.tagId, tag, color })
+    }
   }
 }
 
@@ -32,6 +39,9 @@ const mutations = {
     state.userName = null
     state.tags = []
     state.contacts = []
+  },
+  addTag (state, tag) {
+    state.tags = [...state.tags, tag]
   }
 }
 

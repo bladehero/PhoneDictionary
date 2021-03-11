@@ -26,6 +26,43 @@
     </v-list-item>
     <v-card-actions class="mt-0 pt-0">
       <v-chip-group active-class="accent--text" column>
+        <v-dialog v-model="dialog" persistent max-width="300">
+          <template v-slot:activator="{ on, attrs }">
+            <v-chip class="my-1 mx-1" light v-bind="attrs" v-on="on" last>
+              <v-icon>
+                mdi-plus
+              </v-icon>
+            </v-chip>
+          </template>
+          <v-card>
+            <v-card-title class="headline">
+              Введіть новий тег
+            </v-card-title>
+            <v-card-text>
+              <v-text-field
+                color="purple"
+                label="Назва тегу"
+                v-model="tag"
+              ></v-text-field>
+              <v-color-picker
+                class="no-alpha"
+                dot-size="25"
+                swatches-max-height="200"
+                hide-inputs
+                v-model="color"
+              ></v-color-picker>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="error darken-1" text @click="closeModal">
+                Відміна
+              </v-btn>
+              <v-btn color="purple darken-3" text @click="addTag">
+                ОК
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
         <v-chip
           class="my-1 mx-1"
           v-for="tag in tags"
@@ -35,20 +72,22 @@
         >
           {{ tag.tag }}
         </v-chip>
-        <v-chip class="my-1 mx-1" light>
-          <v-icon>
-            mdi-plus
-          </v-icon>
-        </v-chip>
       </v-chip-group>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
+  data () {
+    return {
+      dialog: false,
+      tag: '',
+      color: ''
+    }
+  },
   computed: {
     ...mapGetters('users', ['userName', 'tags', 'contacts']),
     allContacts () {
@@ -56,9 +95,21 @@ export default {
     }
   },
   methods: {
-    ...mapActions('users', ['getUserById']),
+    ...mapActions('users', ['getUserById', 'createTag']),
+    ...mapMutations('users', ['clearUser']),
     goBack () {
       this.$router.go(-1)
+    },
+    closeModal () {
+      this.tag = ''
+      this.dialog = false
+    },
+    addTag () {
+      const userId = this.$route.params.userId
+      const tag = this.tag
+      const color = this.color.slice(0, 7)
+      this.closeModal()
+      this.createTag({ userId, tag, color })
     }
   },
   created () {
@@ -67,4 +118,21 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.no-alpha {
+  .v-color-picker__controls {
+    .v-color-picker__preview {
+      .v-color-picker__sliders {
+        .v-color-picker__alpha {
+          display: none;
+        }
+      }
+    }
+    .v-color-picker__edit {
+      .v-color-picker__input:last-child {
+        display: none;
+      }
+    }
+  }
+}
+</style>
