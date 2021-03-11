@@ -76,6 +76,8 @@ namespace PhoneDictionary.API
             
             app.UseCors(FullAccessOrigins);
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseExceptionHandler("/error");
             app.UseHttpsRedirection();
             app.UseRouting();
