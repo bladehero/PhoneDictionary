@@ -28,7 +28,7 @@ const mutations = {
     state.tags = user.tags
     state.contacts = user.contacts
   },
-  clearUser(state){
+  clearUser (state) {
     state.userName = null
     state.tags = []
     state.contacts = []

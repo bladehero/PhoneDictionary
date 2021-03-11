@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="12">
+  <div>
     <v-row class="mb-4" justify="center">
       <v-col cols="6" md="4" lg="3">
         <ContactTypesHeader />
@@ -41,7 +41,7 @@
       </div>
     </div>
     <ContactsList />
-  </v-col>
+  </div>
 </template>
 
 <script>

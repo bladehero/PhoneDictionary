@@ -3,10 +3,18 @@
     <v-main>
       <v-container>
         <v-row justify="center">
-            <v-col class="mt-5 mb-3" cols="3">
-              <v-img src="@/assets/logo-header.png" alt="logo" />
-            </v-col>
+          <v-col class="mt-5 mb-3" cols="3">
+            <router-link to="/">
+              <v-img
+                lazy-src="@/assets/logo-header.png"
+                src="@/assets/logo-header.png"
+                alt="logo"
+              />
+            </router-link>
+          </v-col>
+          <v-col cols="12">
             <router-view />
+          </v-col>
         </v-row>
       </v-container>
     </v-main>

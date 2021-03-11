@@ -28,7 +28,7 @@
                   <v-icon
                     class="mr-2"
                     color="blue darken-2"
-                    @click="openUserInfo"
+                    @click="openUserInfo(contact.userId)"
                   >
                     mdi-account
                   </v-icon>
@@ -48,7 +48,7 @@
                     </template>
 
                     <v-list>
-                      <v-list-item link @click="openUserInfo">
+                      <v-list-item link @click="openUserInfo(contact.userId)">
                         <v-list-item-title>О користувачі</v-list-item-title>
                       </v-list-item>
                       <v-list-item
@@ -125,6 +125,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+
 export default {
   data () {
     return {
@@ -166,7 +167,9 @@ export default {
     ...mapActions('contactInfos', ['getContactInfo']),
     ...mapMutations('contactInfos', ['clearContactInfo']),
     ...mapMutations('contacts', ['setSize']),
-    openUserInfo () {},
+    openUserInfo (userId) {
+      this.$router.push({ name: 'User', params: { userId } })
+    },
     async openContactInfo (id) {
       await this.getContactInfo(id)
       this.isContactInfoShown = true
