@@ -35,7 +35,7 @@ namespace PhoneDictionary.CQRS.Handlers
                 UserName = user.Name,
                 Contacts = user.Contacts.Select(x =>
                     new GetUserByIdResponse.UserContact(x.Id, x.Value, x.ContactType.ToString(), x.ContactInfo?.Id)),
-                Tags = user.Tags.Select(x => new GetUserByIdResponse.UserTag(x.Text, x.Color))
+                Tags = user.Tags.Select(x => new GetUserByIdResponse.UserTag(x.Id, x.Text, x.Color))
             };
             return response;
         }
