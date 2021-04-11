@@ -47,10 +47,10 @@ namespace PhoneDictionary.Services.Seed
             Contacts = contactFaker.Generate(contactCount);
 
             var phones = Contacts.Where(x => x.ContactType == ContactTypes.PhoneNumber);
-            var providers = new[] {"Vodafone", "lifecell", "Kyivstar", "Укртелеком"};
+            var providers = new[] {"Vodafone", "T-Mobile", "Orange", "Play"};
             var contactInfoFaker = new BaseEntityFaker<ContactInfo>()
                 .RuleFor(x => x.City, x => x.Address.City())
-                .RuleFor(x => x.Country, x => "Україна")
+                .RuleFor(x => x.Country, x => x.Address.Country())
                 .RuleFor(x => x.Provider, x => x.PickRandom(providers));
 
             ContactInfos = phones.Select(x =>
