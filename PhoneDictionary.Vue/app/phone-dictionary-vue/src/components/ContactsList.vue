@@ -1,19 +1,19 @@
 <template>
   <v-card class="pb-2" elevation="2">
-    <v-card-title class="headline">Контакти</v-card-title>
+    <v-card-title class="headline">Contacts</v-card-title>
     <v-card-text>
       <v-simple-table v-if="hasContact" dense>
         <template v-slot:default>
           <thead>
             <tr>
               <th class="text-left">
-                Ім'я
+                Name
               </th>
               <th class="text-left d-none d-md-table-cell">
-                Тип
+                Type
               </th>
               <th class="text-left">
-                Контакт
+                Contact
               </th>
               <th></th>
             </tr>
@@ -49,13 +49,13 @@
 
                     <v-list>
                       <v-list-item link @click="openUserInfo(contact.userId)">
-                        <v-list-item-title>О користувачі</v-list-item-title>
+                        <v-list-item-title>About</v-list-item-title>
                       </v-list-item>
                       <v-list-item
                         link
                         @click="openContactInfo(contact.contactId)"
                       >
-                        <v-list-item-title>Інформація</v-list-item-title>
+                        <v-list-item-title>Information</v-list-item-title>
                       </v-list-item>
                     </v-list>
                   </v-menu>
@@ -65,48 +65,48 @@
           </tbody>
         </template>
       </v-simple-table>
-      <p class="text-center mt-7" v-else>Немає даних згідно із запитом...</p>
+      <p class="text-center mt-7" v-else>No data found...</p>
 
       <v-overlay :value="isContactInfoShown" opacity="1" color="white">
         <v-container class="contact-info-grid">
           <v-row>
             <div class="d-inline-flex">
               <v-icon left>mdi-account</v-icon>
-              <span class="header">Ім'я</span>
+              <span class="header">Name</span>
             </div>
             <span class="value">{{ infoUserName }}</span>
           </v-row>
           <v-row>
             <div class="d-inline-flex">
               <v-icon left>mdi-earth</v-icon>
-              <span class="header">Країна</span>
+              <span class="header">Country</span>
             </div>
             <span class="value">{{ infoCountry }}</span>
           </v-row>
           <v-row>
             <div class="d-inline-flex">
               <v-icon left>mdi-map-marker-radius</v-icon>
-              <span class="header">Місто</span>
+              <span class="header">City</span>
             </div>
             <span class="value">{{ infoCity }}</span>
           </v-row>
           <v-row>
             <div class="d-inline-flex">
               <v-icon left>mdi-face-agent</v-icon>
-              <span class="header">Провайдер</span>
+              <span class="header">Provider</span>
             </div>
             <span class="value">{{ infoProvider }}</span>
           </v-row>
           <v-row class="mb-2">
             <div class="d-inline-flex">
               <v-icon left>mdi-account-box-outline</v-icon>
-              <span class="header">Контакт</span>
+              <span class="header">Contact</span>
             </div>
             <span class="value">{{ infoContact }}</span>
           </v-row>
           <v-row class="float-right">
             <v-btn small color="success" @click="closeContactInfo">
-              Закрити
+              Close
             </v-btn>
           </v-row>
         </v-container>

@@ -6,13 +6,13 @@
           <v-icon>
             mdi-chevron-left
           </v-icon>
-          Назад
+          Back
         </v-btn>
         <v-list-item-title class="headline mb-5">
           {{ userName }}
         </v-list-item-title>
         <v-list-item-title class="overline mb-1">
-          Контакти:
+          Contacts:
         </v-list-item-title>
         <p class="font-weight-light mt-1">
           {{ allContacts }}
@@ -22,7 +22,7 @@
 
     <v-divider class="mt-1"></v-divider>
     <v-list-item class="mb-0">
-      <span class="title">Теги:</span>
+      <span class="title">Tags:</span>
     </v-list-item>
     <v-card-actions class="mt-0 pt-0">
       <v-chip-group active-class="accent--text" column>
@@ -36,12 +36,12 @@
           </template>
           <v-card>
             <v-card-title class="headline">
-              Введіть новий тег
+              Type new tag...
             </v-card-title>
             <v-card-text>
               <v-text-field
                 color="purple"
-                label="Назва тегу"
+                label="Tag Name"
                 v-model="tag"
               ></v-text-field>
               <v-color-picker
@@ -55,10 +55,10 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="error darken-1" text @click="closeModal">
-                Відміна
+                Cancel
               </v-btn>
               <v-btn color="purple darken-3" text @click="addTag">
-                ОК
+                OK
               </v-btn>
             </v-card-actions>
           </v-card>

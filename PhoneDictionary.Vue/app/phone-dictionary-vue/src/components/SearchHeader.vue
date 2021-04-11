@@ -1,7 +1,7 @@
 <template>
   <v-text-field
-    label="Пошук"
-    placeholder="Пошуковий запит..."
+    label="Search"
+    placeholder="Search expression..."
     v-model="search"
     outlined
     dense

@@ -5,7 +5,7 @@
     color="white"
     v-model="selected"
     :items="contactTypes"
-    label="Всі типи"
+    label="All types"
     outlined
     multiple
     dark

@@ -5,7 +5,7 @@
     color="white"
     v-model="selected"
     :items="cities"
-    label="Всі міста"
+    label="All citites"
     multiple
     outlined
     dark
