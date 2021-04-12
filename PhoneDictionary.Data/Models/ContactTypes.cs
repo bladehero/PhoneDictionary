@@ -4,7 +4,7 @@ namespace PhoneDictionary.Data.Models
 {
     public enum ContactTypes
     {
-        [Description("Телефоний номер")] PhoneNumber,
+        [Description("Phone")] PhoneNumber,
         [Description("Email")] Email
     }
 }
