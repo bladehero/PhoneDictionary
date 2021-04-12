@@ -20,11 +20,13 @@ namespace PhoneDictionary.CQRS.Handlers
         public async Task<GetContactInfoByIdResponse> Handle(GetContactInfoByIdRequest request,
             CancellationToken cancellationToken)
         {
-            var contactInfo = await _dbContext.ContactInfos
-                .Include(x => x.Contact)
-                .ThenInclude(x => x.User)
+            var contact = await _dbContext.Contacts
+                .Include(x => x.ContactInfo)
+                .Include(x => x.User)
                 .FirstOrDefaultAsync(x => x.Id == request.ContactInfoId, cancellationToken);
-            if (contactInfo is null)
+
+            var contactInfo = contact?.ContactInfo;
+            if (contact?.ContactInfo is null)
             {
                 return null;
             }
