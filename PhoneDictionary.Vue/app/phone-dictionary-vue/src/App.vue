@@ -35,7 +35,25 @@ export default {
 html {
   overflow-x: hidden !important;
   overflow-y: hidden !important;
+  font-size: 1.5rem;
+  --scrollbarBG: transparent;
+  --thumbBG: #00d8a2;
 }
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
 #app {
   content: '';
   position: absolute;

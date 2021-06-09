@@ -1,7 +1,7 @@
 <template>
   <v-card class="pb-2" elevation="2">
     <v-card-title class="headline">Контакти</v-card-title>
-    <v-card-text>
+    <v-card-text class="table-list-container" :style="{ maxHeight }">
       <v-simple-table v-if="hasContact" dense>
         <template v-slot:default>
           <thead>
@@ -131,7 +131,8 @@ export default {
     return {
       windowHeight: window.innerHeight,
       smallHeight: false,
-      isContactInfoShown: false
+      isContactInfoShown: false,
+      maxHeight: 'none'
     }
   },
   computed: {
@@ -157,7 +158,7 @@ export default {
     ])
   },
   mounted () {
-    this.onResize()
+    setTimeout(this.onResize, 100)
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize)
     })
@@ -180,6 +181,12 @@ export default {
     },
     onResize () {
       this.smallHeight = window.innerHeight < 610
+      this.maxHeight =
+        window.innerHeight -
+        document.querySelector('.table-list-container').getBoundingClientRect()
+          .y -
+        70 +
+        'px'
     }
   },
   watch: {
@@ -188,9 +195,9 @@ export default {
     },
     async smallHeight (newValue) {
       if (newValue) {
-        await this.setSize(3)
+        await this.setSize(10)
       } else {
-        await this.setSize(5)
+        await this.setSize(20)
       }
     }
   }
@@ -216,5 +223,8 @@ export default {
 }
 .contact-info-grid span.value {
   font-weight: bold;
+}
+.table-list-container {
+  overflow-y: auto;
 }
 </style>

@@ -23,7 +23,7 @@ namespace PhoneDictionary.CQRS.Handlers
             var contactInfo = await _dbContext.ContactInfos
                 .Include(x => x.Contact)
                 .ThenInclude(x => x.User)
-                .FirstOrDefaultAsync(x => x.Id == request.ContactInfoId, cancellationToken);
+                .FirstOrDefaultAsync(x => x.ContactId == request.ContactInfoId, cancellationToken);
             if (contactInfo is null)
             {
                 return null;

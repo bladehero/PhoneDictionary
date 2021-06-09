@@ -5,7 +5,7 @@ const state = () => ({
   pages: 0,
   records: 0,
   page: 1,
-  size: 5,
+  size: 20,
   params: {
     search: null,
     contactTypes: [],
