@@ -158,7 +158,7 @@ export default {
     ])
   },
   mounted () {
-    setTimeout(this.onResize, 100)
+    setTimeout(this.onResize, 200)
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize)
     })
